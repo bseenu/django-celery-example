@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind : Deployment
+metadata: 
+  name: django-deployment
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: django
+ 
+    spec:
+      containers:
+      - name: django-web
+        image: bseenu/django.srini
+        ports:
+        - containerPort: 8000
+        volumeMounts:
+        - mountPath: /app/data
+          name: data-volume
+      volumes:
+      - name: data-volume
+        persistentVolumeClaim:
+          claimName: sqlite-pvc 
+
+              

@@ -1,0 +1,12 @@
+FROM python:latest
+
+RUN mkdir /app
+WORKDIR /app
+COPY . /app/
+
+RUN pip install -Ur requirements.txt
+
+
+CMD [ "celery", "-A", "mysite", "worker", "-l", "info", "-f", "/var/log/worker.log" ]
+
+

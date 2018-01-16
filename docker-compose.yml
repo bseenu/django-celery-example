@@ -1,0 +1,22 @@
+version: "2"
+
+services:
+
+    django:
+        container_name: web
+        build:
+            context: ./
+            dockerfile: Dockerfile.django
+        ports:
+            - 8000:8000
+        depends_on:
+            - celery
+        links:
+            - celery
+
+    celery:
+        container_name: worker
+        build:
+            context: ./
+            dockerfile: Dockerfile.celery
+
